@@ -23,11 +23,13 @@ const FINISH = 9
 
 var test_count = 0
 
-this.exports = function QuickTest(props, ...tests) {
+
+module.exports = function QuickTest(props, ...tests) {
   var t = new _Tests(++test_count, props, ...tests)
   console.log("Preparing: " + t._name)
   setTimeout(() => t._run(), 15)
 }
+
 
 function fn_name(fn, i) {
   return fn.name || (re_func.exec(fn) || def_arr)[1] || ("Func #" + i)
