@@ -23,7 +23,7 @@ const FINISH = 9
 
 var test_count = 0
 
-export function QuickTest(props, ...tests) {
+this.exports = function QuickTest(props, ...tests) {
   var t = new _Tests(++test_count, props, ...tests)
   console.log("Preparing: " + t._name)
   setTimeout(() => t._run(), 15)
