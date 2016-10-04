@@ -1,8 +1,8 @@
 
 ```javascript
-const SimpleTest = require("SimpleTest")
+const QuickTest = require("QuickTest")
 
-SimpleTest({
+QuickTest({
   name: "foobar",
   timeout: 4000
 },
