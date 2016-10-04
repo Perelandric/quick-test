@@ -2,7 +2,7 @@
   "name": "quick-test",
   "version": "0.0.1",
   "description": "Small, simple unit testing library.",
-  "main": "quick-test.js",
+  "main": "src/quick-test.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
