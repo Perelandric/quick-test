@@ -1,6 +1,6 @@
 {
   "name": "quick-test",
-  "version": "0.1.2-0",
+  "version": "0.2.0",
   "description": "Small, simple unit testing library.",
   "main": "src/quick-test.js",
   "scripts": {
