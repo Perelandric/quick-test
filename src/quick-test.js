@@ -158,6 +158,8 @@ class _Tests {
 
 class _Test {
   constructor(tests, fn, i) {
+    this._all = false
+
     this._expect = Infinity
     this._status = PENDING
     this._fail_msgs = []
@@ -223,15 +225,42 @@ class _Test {
     this._expect += n
   }
 
-  equal(a, b, fail_msg) {
-    return this._set_assert_result(a === b, fail_msg)
+  get all() {
+    this._all = true
+    return this
   }
 
-  all_equal(expected, found, fail_msg) {
-    return this._set_assert_result(
-            expected.length === found.length &&
-            expected.every(function(item, i) {
-              return found[i] === item
-            }), fail_msg)
+  _do(expected, found, predicate, fail_msg) {
+    if (this._all) {
+      this._all = false
+
+      return this._set_assert_result(
+              expected.length === found.length &&
+              expected.every(function(item, i) {
+                return predicate(found[i], item)
+              }),
+      fail_msg)
+    }
+
+    return _set_assert_result(predicate(expected, found), fail_msg)
+  }
+
+  // Assertions
+  equal(a, b, fail_msg) {
+    return this._do(a, b, (a, b) => a === b, fail_msg)
+  }
+
+  true(a, fail_msg) {
+    return this._do(this._all ? [true] : true, a, fail_msg)
+  }
+  truthy(a, fail_msg) {
+    return this.true(Array(a.length).fill(true), a.map(x=>!!x), fail_msg)
+  }
+
+  false(a, fail_msg) {
+    return this._do(this._all ? [false] : false, a, fail_msg)
+  }
+  falsey(a, fail_msg) {
+    return this.false(Array(a.length).fill(false), a.map(x=>!x), fail_msg)
   }
 }
