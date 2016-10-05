@@ -270,6 +270,6 @@ class _Test {
     return this.equal(this._all ? Array(a.length).fill(false) : false, a, fail_msg)
   }
   falsey(a, fail_msg) {
-    return this.false(this._all ? a.map(x=>!x) : !a, fail_msg)
+    return this.false(this._all ? a.map(x=>!!x) : !!a, fail_msg)
   }
 }
