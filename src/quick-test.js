@@ -242,7 +242,7 @@ class _Test {
       fail_msg)
     }
 
-    return _set_assert_result(predicate(expected, found), fail_msg)
+    return this._set_assert_result(predicate(expected, found), fail_msg)
   }
 
   // Assertions
