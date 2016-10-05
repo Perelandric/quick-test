@@ -249,18 +249,27 @@ class _Test {
   equal(a, b, fail_msg) {
     return this._do(a, b, (a, b) => a === b, fail_msg)
   }
+  not_equal(a, b, fail_msg) {
+    return !this._equal(a, b, fail_msg)
+  }
+  abstract_equal(a, b, fail_msg) {
+    return this._do(a, b, (a, b) => a == b, fail_msg)
+  }
+  abstract_not_equal(a, b, fail_msg) {
+    return this._do(a, b, (a, b) => a != b, fail_msg)
+  }
 
   true(a, fail_msg) {
-    return this._do(this._all ? [true] : true, a, fail_msg)
+    return this.equal(this._all ? Array(a.length).fill(true) : true, a, fail_msg)
   }
   truthy(a, fail_msg) {
-    return this.true(Array(a.length).fill(true), a.map(x=>!!x), fail_msg)
+    return this.true(this._all ? a.map(x=>!!x) : !!a, fail_msg)
   }
 
   false(a, fail_msg) {
-    return this._do(this._all ? [false] : false, a, fail_msg)
+    return this.equal(this._all ? Array(a.length).fill(false) : false, a, fail_msg)
   }
   falsey(a, fail_msg) {
-    return this.false(Array(a.length).fill(false), a.map(x=>!x), fail_msg)
+    return this.false(this._all ? a.map(x=>!x) : !a, fail_msg)
   }
 }
