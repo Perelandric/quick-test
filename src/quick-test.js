@@ -252,12 +252,6 @@ class _Test {
   not_equal(a, b, fail_msg) {
     return !this._equal(a, b, fail_msg)
   }
-  abstract_equal(a, b, fail_msg) {
-    return this._do(a, b, (a, b) => a == b, fail_msg)
-  }
-  abstract_not_equal(a, b, fail_msg) {
-    return this._do(a, b, (a, b) => a != b, fail_msg)
-  }
 
   true(a, fail_msg) {
     return this.equal(this._all ? Array(a.length).fill(true) : true, a, fail_msg)
