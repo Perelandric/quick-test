@@ -38,6 +38,7 @@ function fn_name(fn, i) {
 
 class _Tests {
   constructor(num, props, ...tests) {
+    this._complete = false
     this._num = num
 
     this._name = props.name ? (props.name + "") : ("Test #" + this._num)
@@ -116,12 +117,19 @@ class _Tests {
         this._timeout += 1; break
       }
 
-      if (this._all_complete) {
+      if (this._all_complete()) {
         this._trigger(TEARDOWN)
       }
       break
 
     case TEARDOWN:
+      if (this._complete) {
+        console.log("unexpected completion after teardown")
+        return
+      }
+
+      this._complete = true
+
       if (this._timeout_id != null) {
         clearTimeout(this._timeout_id)
         this._timeout_id = null
@@ -130,13 +138,13 @@ class _Tests {
       console.log("\n\n" + this._name + "\n===================================")
 
       this._tests.forEach(t => {
-        console.log("  " + t._name + ": ")
+        const s = "  " + t._name + ": %s"
 
         if (t._fail_msgs.length) {
-          console.log("FAIL")
-          t._fail_msgs.forEach(m => console.log(m))
+          console.log(s, "FAIL")
+          t._fail_msgs.forEach(m => console.log("    %s", m))
         } else {
-          console.log("PASS")
+          console.log(s, "PASS")
         }
       })
 
