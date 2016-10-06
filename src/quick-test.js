@@ -195,14 +195,13 @@ class _Test {
 
   _set_assert_result(res, fail_msg) {
     if (this._is_complete()) {
-            // TODO: Log activity after completion
-      return
+      console.log("%s: unexpected assertion after completion.", this._name)
+      return res
     }
 
     if (!res) {
       this._fail_msgs.push(fail_msg)
     }
-
 
     if (this._expect !== Infinity) {
       this._expect -= 1
